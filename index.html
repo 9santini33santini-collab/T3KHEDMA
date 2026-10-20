@@ -777,7 +777,8 @@
           <div id="teamUploadStatus" class="upload-status" style="display:none;"></div>
         </div>
 
-        <div style="overflow-x: auto;">
+        <!-- ID unique pour la capture propre du tableau -->
+        <div id="capture-teams" style="background-color: #0a0a0a; padding: 10px; border-radius: 10px;">
           <table>
             <thead>
               <tr>
@@ -822,7 +823,7 @@
           <div id="mvpUploadStatus" class="upload-status" style="display:none;"></div>
         </div>
 
-        <div style="overflow-x: auto;">
+        <div id="capture-mvp" style="background-color: #0a0a0a; padding: 10px; border-radius: 10px;">
           <table>
             <thead>
               <tr>
@@ -1036,7 +1037,12 @@
 
     // ========== 📸 TÉLÉCHARGEMENT D'IMAGE ==========
     function downloadImage(elementId, fileName) {
-      const element = document.getElementById(elementId);
+      // On cherche l'ID spécifique de la zone de capture si elle existe, sinon on prend la carte entière
+      let targetId = elementId;
+      if (elementId === 'globalCard') targetId = 'capture-teams';
+      if (elementId === 'mvpCard') targetId = 'capture-mvp';
+
+      const element = document.getElementById(targetId);
       if (!element) return;
 
       // Masquer temporairement les boutons/upload pour ne pas les capturer
@@ -1047,20 +1053,11 @@
       alert('Génération de l\'image en cours... Veuillez patienter.');
 
       html2canvas(element, {
-        backgroundColor: '#000000',
+        backgroundColor: '#0d0d0d', // Fond sombre pour le tableau
         scale: 3, // Qualité HD (x3)
         useCORS: true,
         allowTaint: true,
-        logging: false,
-        onclone: (clonedDoc) => {
-          const clonedElement = clonedDoc.getElementById(elementId);
-          if (clonedElement) {
-            clonedElement.style.backgroundColor = '#000000';
-            // S'assurer que le fond de la carte est bien noir
-            clonedElement.style.border = '3px solid #FFD700';
-            clonedElement.style.padding = '25px';
-          }
-        }
+        logging: false
       }).then(canvas => {
         // Remettre les éléments visibles
         hideElements.forEach(el => el.style.visibility = 'visible');
@@ -1558,7 +1555,7 @@
                 <i class="fas fa-download"></i> Télécharger
               </button>
             </div>
-            <div style="overflow-x: auto;">
+            <div id="capture-day" style="background-color: #0d0d0d; padding: 10px; border-radius: 10px; overflow-x: auto;">
               <table>
                 <thead>
                   <tr><th>Rang</th><th class="col-left">Équipe</th><th>Kills</th><th>Top</th><th>Total</th><th>Booyah</th></tr>
@@ -1602,7 +1599,7 @@
                 <i class="fas fa-download"></i> Télécharger
               </button>
             </div>
-            <div style="overflow-x: auto;">
+            <div id="capture-day" style="background-color: #0d0d0d; padding: 10px; border-radius: 10px; overflow-x: auto;">
               <table>
                 <thead>
                   <tr><th>#</th><th class="col-left">Équipe</th><th>Kills</th><th>Top</th><th>Total</th><th>Booyah</th></tr>
@@ -1636,7 +1633,7 @@
                 <i class="fas fa-download"></i> Télécharger
               </button>
             </div>
-            <div style="overflow-x: auto;">
+            <div id="capture-day" style="background-color: #0d0d0d; padding: 10px; border-radius: 10px; overflow-x: auto;">
               <table>
                 <thead>
                   <tr><th>#</th><th class="col-left">Équipe</th><th>Kills</th><th>Top</th><th>Total</th><th>Booyah</th></tr>
