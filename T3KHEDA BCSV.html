@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEGENDARY SUPER LEAGUE SEASON 10</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* ================= BACKGROUND DU SITE ================= */
+    body {
+      background-color: #000000;
+      color: #FFD700;
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('BG.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    /* ================= FENÊTRE D'ACCUEIL ================= */
+    .welcome-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    .welcome-box {
+      background-color: #0a0a0a;
+      border: 4px solid #FFD700;
+      border-radius: 30px;
+      padding: 70px 60px;
+      max-width: 1100px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
+    }
+
+    .welcome-box h1 {
+      font-size: 3.2rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #FFD700;
+      margin-bottom: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .site-logo-img {
+      height: 80px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .welcome-box p {
+      color: #ccc;
+      font-size: 1.4rem;
+      margin-bottom: 50px;
+      letter-spacing: 1px;
+    }
+
+    .choice-buttons {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .choice-btn {
+      flex: 1;
+      min-width: 300px;
+      background-color: #111;
+      border: 3px solid #FFD700;
+      border-radius: 25px;
+      padding: 50px 30px;
+      color: #FFD700;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .choice-btn i {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: #FFD700;
+    }
+
+    .choice-btn:hover {
+      background-color: #FFD700;
+      color: #000;
+    }
+
+    .choice-btn:hover i {
+      color: #000;
+    }
+
+    /* ================= SITE PRINCIPAL ================= */
+    .site-content {
+      display: none;
+    }
+
+    .site-content.active {
+      display: block;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 35px;
+      background-color: #111;
+      border-bottom: 4px solid #FFD700;
+      border-radius: 15px 15px 0 0;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-logo-img {
+      height: 45px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-title h1 {
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #FFD700;
+    }
+
+    .ffleg-badge {
+      background: #1a1a1a;
+      border: 3px solid #FFD700;
+      border-radius: 40px;
+      padding: 12px 28px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      color: #FFD700;
+    }
+
+    /* LAYOUT PRINCIPAL */
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* CARTES */
+    .card {
+      background-color: rgba(10, 10, 10, 0.95);
+      border: 3px solid #FFD700;
+      border-radius: 20px;
+      padding: 25px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #FFD700;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #FFD700;
+    }
+
+    .card-header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .card-header i {
+      font-size: 1.6rem;
+      margin-right: 12px;
+    }
+
+    /* ========== ZONE D'IMPORTATION CSV ========== */
+    .upload-zone {
+      background: #1a1a1a;
+      border: 3px dashed #FFD700;
+      border-radius: 15px;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .upload-zone .upload-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .upload-zone .upload-info i {
+      font-size: 2rem;
+      color: #FFD700;
+    }
+
+    .upload-zone .upload-info .upload-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .upload-zone .upload-info .upload-text strong {
+      color: #FFD700;
+      font-size: 1.1rem;
+    }
+
+    .upload-zone .upload-info .upload-text span {
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    .upload-btn {
+      background-color: #FFD700;
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 30px;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.2s;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .upload-btn:hover {
+      background-color: #fff;
+    }
+
+    .upload-btn input[type="file"] {
+      display: none;
+    }
+
+    .upload-status {
+      width: 100%;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .upload-status.success {
+      background: #0a2a0a;
+      border: 2px solid #0f0;
+      color: #0f0;
+    }
+
+    /* TABLEAUX */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    th {
+      background-color: #1a1a1a;
+      color: #FFD700;
+      padding: 14px 12px;
+      text-align: center;
+      border-bottom: 2px solid #FFD70055;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.85rem;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #222;
+      color: #eee;
+      text-align: center;
+    }
+
+    th.col-left, td.col-left {
+      text-align: left;
+    }
+
+    /* LOGO D'ÉQUIPE */
+    .team-logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+      border: 2px solid #FFD700;
+      background: #FFD700;
+      vertical-align: middle;
+    }
+
+    .team-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #FFD700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: bold;
+      font-size: 0.85rem;
+      margin-right: 10px;
+      border: 3px solid #FFD700;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
+    /* PHOTO JOUEUR */
+    .player-photo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+      border: 2px solid #FFD700;
+      background: #333;
+      vertical-align: middle;
+    }
+
+    .player-photo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #333;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFD700;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-right: 10px;
+      border: 3px solid #FFD700;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
+    /* BADGES */
+    .badge-booyah {
+      background-color: #FFD700;
+      color: #000;
+      font-weight: bold;
+      padding: 6px 14px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      display: inline-block;
+      min-width: 35px;
+      text-align: center;
+    }
+
+    .badge-kill {
+      background-color: #1a1a1a;
+      border: 2px solid #FFD700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: #FFD700;
+      display: inline-block;
+      min-width: 35px;
+      text-align: center;
+    }
+
+    /* ========== SÉLECTEURS ========== */
+    .nav-container {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      background: #0a0a0a;
+      border: 3px solid #FFD700;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+    }
+
+    .nav-group {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .nav-title {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    .week-selector, .total-weeks-selector, .day-selector, .groups-selector {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background-color: #111;
+      border: 3px solid #FFD700;
+      border-radius: 12px;
+      padding: 10px 18px;
+      color: #FFD700;
+      font-weight: bold;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.2s;
+      text-transform: uppercase;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background-color: #FFD700;
+      color: #000;
+    }
+
+    .nav-btn.grand-total {
+      background-color: #FFD700;
+      color: #000;
+    }
+
+    /* ========== AFFICHAGE DES RÉSULTATS ========== */
+    .day-teams-table {
+      background: #0d0d0d;
+      border: 3px solid #FFD700;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .day-teams-table .table-title {
+      background: #1a1a1a;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #FFD700;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #FFD700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .day-teams-table .table-title .title-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ========== GRILLE DES GROUPES ========== */
+    .groups-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .group-box {
+      flex: 1;
+      min-width: 250px;
+      background: #0a0a0a;
+      border: 3px solid #FFD700;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .group-header {
+      background: #FFD700;
+      color: #000;
+      text-align: center;
+      font-weight: 900;
+      font-size: 1.2rem;
+      padding: 12px;
+      text-transform: uppercase;
+    }
+
+    .group-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .group-table th {
+      background-color: #1a1a1a;
+      color: #FFD700;
+      padding: 10px;
+      font-size: 0.8rem;
+      border-bottom: 2px solid #FFD70055;
+    }
+
+    .group-table td {
+      padding: 10px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #222;
+      color: #eee;
+    }
+
+    .group-table .col-no {
+      width: 40px;
+      text-align: center;
+      font-weight: bold;
+      color: #888;
+    }
+
+    .group-table .col-team {
+      text-align: left;
+      font-weight: bold;
+    }
+
+    /* ========== TBD ========== */
+    .tbd-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px;
+      background: #0a0a0a;
+      border: 3px dashed #FFD70055;
+      border-radius: 15px;
+      color: #888;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      gap: 15px;
+    }
+
+    .tbd-container i {
+      font-size: 3rem;
+      color: #FFD700;
+      opacity: 0.5;
+    }
+
+    /* ========== COURONNES ========== */
+    .crown-svg {
+      width: 30px;
+      height: 25px;
+      margin-left: 10px;
+      vertical-align: middle;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+      display: inline-block;
+      transform: translateY(-3px);
+    }
+
+    /* ========== LIGNE DORÉE ========== */
+    tr.winner-row {
+      background: linear-gradient(90deg, #FFD700, #FCE16D);
+      color: #000;
+      font-weight: 800;
+      border-bottom: 2px solid #FFD700;
+    }
+
+    tr.winner-row td {
+      color: #000 !important;
+      border-bottom: 1px solid #e6c200;
+    }
+
+    tr.winner-row .badge-kill {
+      background: #fff;
+      color: #000;
+      border-color: #000;
+    }
+
+    tr.winner-row .badge-booyah {
+      background: #000;
+      color: #FFD700;
+      border-color: #000;
+    }
+
+    tr.winner-row .team-logo {
+      background: #fff;
+      color: #000;
+      border-color: #000;
+    }
+
+    .qualified-banner {
+      background: #FFD700;
+      color: #000;
+      padding: 15px 25px;
+      border-radius: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      margin-top: 20px;
+    }
+
+    /* BOUTON RETOUR */
+    .back-btn {
+      background-color: #111;
+      border: 3px solid #FFD700;
+      border-radius: 15px;
+      padding: 14px 30px;
+      color: #FFD700;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      transition: 0.2s;
+    }
+
+    .back-btn:hover {
+      background-color: #FFD700;
+      color: #000;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1200px) {
+      .header { flex-direction: column; text-align: center; }
+      .welcome-box h1 { font-size: 2.2rem; flex-direction: column; }
+      .choice-btn { min-width: 220px; padding: 35px 20px; font-size: 1.2rem; }
+      .choice-btn i { font-size: 3rem; }
+      .welcome-box { padding: 50px 30px; }
+      .nav-container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= FENÊTRE D'ACCUEIL ================= -->
+  <div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-box">
+      <h1>
+        <img src="LOGO.png" alt="Logo" class="site-logo-img">
+        LEGENDARY SUPER LEAGUE S10
+      </h1>
+      <p>Choisissez ce que vous voulez afficher dans la colonne de droite :</p>
+      <div class="choice-buttons">
+        <button class="choice-btn" onclick="selectChoice('day')">
+          <i class="fas fa-calendar-day"></i>
+          POINTS OF EACH DAY
+        </button>
+        <button class="choice-btn" onclick="selectChoice('stats')">
+          <i class="fas fa-chart-bar"></i>
+          STATISTIQUE PLAYERS
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SITE PRINCIPAL ================= -->
+  <div class="site-content" id="siteContent">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo-title">
+        <img src="LOGO.png" alt="Logo" class="header-logo-img">
+        <h1>LEGENDARY SUPER LEAGUE <span style="color:#fff;">S10</span></h1>
+      </div>
+      <div class="ffleg-badge">
+        <i class="fas fa-shield-alt"></i> FFLEG-SLS10 - TOTAL DAYS 18 WITH FINAL
+      </div>
+    </header>
+
+    <!-- BOUTON RETOUR -->
+    <button class="back-btn" onclick="goBack()">
+      <i class="fas fa-arrow-left"></i> Retour au choix
+    </button>
+
+    <!-- CONTENU PRINCIPAL -->
+    <div class="main-container">
+
+      <!-- 1. POINTS OF 19 TEAMS (Pleine largeur) -->
+      <div class="card" id="globalCard">
+        <div class="card-header">
+          <div class="card-header-left">
+            <i class="fas fa-trophy"></i>
+            <span>POINTS OF 19 TEAMS</span>
+          </div>
+        </div>
+        
+        <!-- ZONE D'IMPORTATION CSV POUR LES ÉQUIPES -->
+        <div class="upload-zone">
+          <div class="upload-info">
+            <i class="fas fa-file-csv"></i>
+            <div class="upload-text">
+              <strong>Importer le fichier CSV des Équipes</strong>
+              <span>Sélectionnez votre fichier (ex: W1-D1-AXB.csv)</span>
+            </div>
+          </div>
+          <label class="upload-btn">
+            <i class="fas fa-upload"></i> Choisir le CSV
+            <input type="file" accept=".csv" onchange="handleTeamUpload(event)">
+          </label>
+          <div id="teamUploadStatus" class="upload-status" style="display:none;"></div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Rang</th>
+                <th class="col-left">Équipe</th>
+                <th>Kills</th>
+                <th>Top</th>
+                <th>Total</th>
+                <th>Booyah</th>
+              </tr>
+            </thead>
+            <tbody id="teamsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2. MVP PLAYERS (Pleine largeur) -->
+      <div class="card" id="mvpCard">
+        <div class="card-header">
+          <div class="card-header-left">
+            <i class="fas fa-star"></i>
+            <span>MVP PLAYERS</span>
+          </div>
+        </div>
+
+        <!-- ZONE D'IMPORTATION CSV POUR LES JOUEURS -->
+        <div class="upload-zone">
+          <div class="upload-info">
+            <i class="fas fa-file-csv"></i>
+            <div class="upload-text">
+              <strong>Importer le fichier CSV des Joueurs (MVP)</strong>
+              <span>Sélectionnez votre fichier (ex: W1-MVP-D1.csv)</span>
+            </div>
+          </div>
+          <label class="upload-btn">
+            <i class="fas fa-upload"></i> Choisir le CSV
+            <input type="file" accept=".csv" onchange="handleMVPUpload(event)">
+          </label>
+          <div id="mvpUploadStatus" class="upload-status" style="display:none;"></div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-left">Player Name</th>
+                <th>Kill</th>
+                <th>Damage</th>
+                <th>Assist</th>
+                <th>Headshots</th>
+              </tr>
+            </thead>
+            <tbody id="mvpTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3. MENU / SELECTEURS (Pleine largeur) -->
+      <div class="nav-container">
+        <div class="nav-group">
+          <div class="nav-title">Semaines</div>
+          <div class="week-selector" id="weekBtns"></div>
+        </div>
+        
+        <div class="nav-group">
+          <div class="nav-title">Totaux par semaine</div>
+          <div class="total-weeks-selector" id="totalBtns"></div>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-title">Distribution des Groupes</div>
+          <div class="groups-selector" id="groupsBtns"></div>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-title">Jours (Matchs)</div>
+          <div class="day-selector" id="dayBtns"></div>
+        </div>
+      </div>
+
+      <!-- 4. RÉSULTATS DU JOUR (Pleine largeur) -->
+      <div id="dayResultsContainer"></div>
+
+    </div>
+  </div>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    // ========== LOGOS DES ÉQUIPES ==========
+    const teamLogos = {
+      "69 E-SPORT": "6E.png", "AL AHLI ESP": "AA.png", "AMATERAS": "AM.png",
+      "ALPHA TEAM": "AT.png", "BAZ ESPORT": "BE.png", "CLEAR VISION": "CV.png",
+      "FENNEC ESPORT": "FE.png", "FURY ESPORTS": "FURY.png", "GOATVERSE": "GO.png",
+      "IMPELDOWN": "IM.png", "JOKO FORCE": "JF.png", "NEYA ESPORT": "NEYA.png",
+      "STARS DZ": "SD.png", "SUPER STARS": "SS.png", "VOLCANOS": "VO.png",
+      "WANTED DZ": "WD.png", "WINNERS": "WI.png", "BMH ESP": "BMH.png",
+      "NEXORA": "902000052.png"
+    };
+
+    // ========== DONNÉES DES GROUPES ==========
+    const groupsData = {
+      "W1": {
+        A: ["FENNEC ESPORT","IMPELDOWN","NEYA ESPORT","STARS DZ","VOLCANOS","BMH ESP"],
+        B: ["69 E-SPORT","AL AHLI ESP","AMATERAS","BAZ ESPORT","GOATVERSE","WANTED DZ","WINNERS"],
+        C: ["CLEAR VISION","JOKO FORCE","ALPHA TEAM","SUPER STARS","FURY ESPORTS","NEXORA"]
+      },
+      "W2": {
+        A: ["69 E-SPORT","GOATVERSE","IMPELDOWN","STARS DZ","SUPER STARS","WANTED DZ"],
+        B: ["FURY ESPORTS","ALPHA TEAM","AMATERAS","BAZ ESPORT","JOKO FORCE","VOLCANOS","NEXORA"],
+        C: ["CLEAR VISION","BMH ESP","NEYA ESPORT","AL AHLI ESP","FENNEC ESPORT","WINNERS"]
+      },
+      "W3": null, "W4": null
+    };
+
+    const teamNames = [...groupsData.W1.A, ...groupsData.W1.B, ...groupsData.W1.C];
+
+    // ========== MINI FINAL WEEK 1 ==========
+    const miniFinalW1Teams = [
+      "BAZ ESPORT", "SUPER STARS", "JOKO FORCE", "FURY ESPORTS",
+      "ALPHA TEAM", "CLEAR VISION", "VOLCANOS", "NEYA ESPORT",
+      "AMATERAS", "IMPELDOWN", "STARS DZ", "AL AHLI ESP"
+    ];
+
+    const crownedTeamsType1 = ["AL AHLI ESP"];
+    const crownedTeamsType2 = ["SUPER STARS", "AMATERAS", "NEYA ESPORT", "FURY ESPORTS", "JOKO FORCE"];
+
+    const miniFinalW1Results = {};
+    miniFinalW1Teams.forEach(name => {
+      miniFinalW1Results[name] = { kills: 0, top: 0, total: 0, booyah: 0 };
+    });
+
+    const teamStats = {};
+    teamNames.forEach(name => { teamStats[name] = { kills: 0, top: 0, total: 0, booyah: 0 }; });
+
+    let mvpPlayers = [];
+
+    // ========== SVG COURONNES ==========
+    const crownSVG1 = `
+      <svg class="crown-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 30 120 L 170 120 L 175 145 L 25 145 Z" fill="#D4AF37" stroke="#8B6508" stroke-width="3"/>
+        <ellipse cx="100" cy="145" rx="75" ry="10" fill="#8B6508"/>
+        <rect x="25" y="115" width="150" height="10" fill="#FFD700"/>
+        <circle cx="40" cy="120" r="4" fill="#900" stroke="#000" stroke-width="1"/>
+        <circle cx="70" cy="120" r="4" fill="#900" stroke="#000" stroke-width="1"/>
+        <circle cx="100" cy="120" r="4" fill="#900" stroke="#000" stroke-width="1"/>
+        <circle cx="130" cy="120" r="4" fill="#900" stroke="#000" stroke-width="1"/>
+        <circle cx="160" cy="120" r="4" fill="#900" stroke="#000" stroke-width="1"/>
+        <path d="M 25 115 L 10 60 L 40 80 Z" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <circle cx="10" cy="60" r="8" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <path d="M 60 115 L 40 40 L 80 75 Z" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <circle cx="40" cy="40" r="8" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <path d="M 100 115 L 100 20 L 140 75 Z" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <circle cx="100" cy="20" r="8" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <path d="M 140 115 L 160 40 L 120 75 Z" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <circle cx="160" cy="40" r="8" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <path d="M 175 115 L 190 60 L 160 80 Z" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <circle cx="190" cy="60" r="8" fill="#FFD700" stroke="#8B6508" stroke-width="2"/>
+        <path d="M 50 115 L 60 85 L 70 115 Z" fill="#B22222" stroke="#000" stroke-width="1"/>
+        <path d="M 85 115 L 100 70 L 115 115 Z" fill="#B22222" stroke="#000" stroke-width="1"/>
+        <path d="M 130 115 L 140 85 L 150 115 Z" fill="#B22222" stroke="#000" stroke-width="1"/>
+      </svg>`;
+
+    const crownSVG2 = `
+      <svg class="crown-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 30 120 L 170 120 L 175 145 L 25 145 Z" fill="#F9A602" stroke="#B8860B" stroke-width="3"/>
+        <ellipse cx="100" cy="145" rx="75" ry="10" fill="#B8860B"/>
+        <rect x="25" y="112" width="150" height="8" fill="#FFD700" rx="4" />
+        <path d="M 25 115 L 15 60 L 45 80 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <circle cx="15" cy="60" r="9" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <path d="M 60 115 L 45 40 L 85 75 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <circle cx="45" cy="40" r="9" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <path d="M 100 115 L 100 20 L 140 75 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <circle cx="100" cy="20" r="9" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <path d="M 140 115 L 155 40 L 115 75 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <circle cx="155" cy="40" r="9" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <path d="M 175 115 L 185 60 L 155 80 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <circle cx="185" cy="60" r="9" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <path d="M 35 130 L 165 130" stroke="#FFDF00" stroke-width="4" opacity="0.5"/>
+        <path d="M 40 140 L 160 140" stroke="#FFDF00" stroke-width="4" opacity="0.5"/>
+      </svg>`;
+
+    // ========== 🧠 DÉTECTION INTELLIGENTE ==========
+    function similarity(a, b) {
+      const longer = a.length > b.length ? a : b;
+      const shorter = a.length > b.length ? b : a;
+      if (longer.length === 0) return 1.0;
+      const distance = levenshteinDistance(longer, shorter);
+      return (longer.length - distance) / longer.length;
+    }
+
+    function levenshteinDistance(a, b) {
+      const matrix = [];
+      for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          if (b.charAt(i - 1) === a.charAt(j - 1)) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, matrix[i][j-1] + 1, matrix[i-1][j] + 1);
+          }
+        }
+      }
+      return matrix[b.length][a.length];
+    }
+
+    function findBestMatch(csvName) {
+      const cleaned = csvName.trim().toUpperCase().replace(/[ÉÈÊË]/g, 'E').replace(/[ÀÂÄ]/g, 'A');
+      for (const officialName of teamNames) {
+        const officialCleaned = officialName.toUpperCase().replace(/[ÉÈÊË]/g, 'E').replace(/[ÀÂÄ]/g, 'A');
+        if (officialCleaned === cleaned) return officialName;
+      }
+      let bestMatch = null, bestScore = 0.65;
+      for (const officialName of teamNames) {
+        const officialCleaned = officialName.toUpperCase().replace(/[ÉÈÊË]/g, 'E').replace(/[ÀÂÄ]/g, 'A');
+        const score = similarity(cleaned, officialCleaned);
+        if (score > bestScore) { bestScore = score; bestMatch = officialName; }
+      }
+      return bestMatch;
+    }
+
+    // ========== LOGO & PHOTO ==========
+    function getTeamLogoHTML(name) {
+      const logoFile = teamLogos[name];
+      if (logoFile) {
+        return `<img src="${logoFile}" alt="${name}" class="team-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <span class="team-logo" style="display:none;">${getInitials(name)}</span>`;
+      }
+      return `<span class="team-logo">${getInitials(name)}</span>`;
+    }
+
+    function getInitials(name) {
+      const words = name.split(/[\s\-]+/).filter(w => w.length > 0);
+      if (words.length === 1) return words[0].substring(0, 2).toUpperCase();
+      return (words[0][0] + words[1][0]).toUpperCase();
+    }
+
+    function getPlayerPhotoHTML(playerName) {
+      if (!playerName || playerName === "En attente...") return `<span class="player-photo">?</span>`;
+      
+      let cleanName = playerName;
+      if (playerName.includes('.')) {
+        cleanName = playerName.split('.').pop().trim();
+      }
+      
+      const photoFile = `${cleanName}.png`;
+      const initial = playerName.charAt(0).toUpperCase();
+      
+      return `<img src="${photoFile}" alt="${playerName}" class="player-photo-img" 
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+              <span class="player-photo" style="display:none;">${initial}</span>`;
+    }
+
+    // ========== 📂 IMPORTATION CSV (PAR LE USER) ==========
+    function handleTeamUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const csvText = e.target.result;
+        
+        resetStats();
+        const isMiniFinal = (currentDay === 'D4' || currentDay === 'D8' || currentDay === 'D12' || currentDay === 'D16');
+        if (isMiniFinal) {
+          parseMiniFinalCSV(csvText);
+        } else {
+          parseCSV(csvText);
+        }
+
+        const statusEl = document.getElementById('teamUploadStatus');
+        statusEl.className = 'upload-status success';
+        statusEl.style.display = 'flex';
+        statusEl.innerHTML = `<i class="fas fa-check-circle"></i> ${file.name} chargé avec succès`;
+
+        renderGlobalTeamsTable();
+        renderDayResults();
+      };
+      reader.readAsText(file, 'UTF-8');
+    }
+
+    function handleMVPUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const csvText = e.target.result;
+        parseMVPCSV(csvText);
+
+        const statusEl = document.getElementById('mvpUploadStatus');
+        statusEl.className = 'upload-status success';
+        statusEl.style.display = 'flex';
+        statusEl.innerHTML = `<i class="fas fa-check-circle"></i> ${file.name} chargé avec succès`;
+
+        renderMVPTable();
+      };
+      reader.readAsText(file, 'UTF-8');
+    }
+
+    // ========== PARSER LE CSV ==========
+    function parseCSV(csvText) {
+      const lines = csvText.trim().split('\n');
+      lines.forEach((line) => {
+        if (line.includes('Rang') || line.includes('Équipe') || line.includes('Equipe')) return;
+        const parts = line.split(',').map(p => p.trim());
+
+        if (parts.length >= 7) {
+          const teamName2Raw = parts[2];
+          const isTeamMatch2 = findBestMatch(teamName2Raw);
+          
+          if (isTeamMatch2) {
+            const kills2 = parseInt(parts[3]) || 0;
+            const top2 = parseInt(parts[4]) || 0;
+            const total2 = parseInt(parts[5]) || 0;
+            const booyah2 = parseInt(parts[6]) || 0;
+            
+            if (teamStats[isTeamMatch2]) {
+              teamStats[isTeamMatch2].kills += kills2;
+              teamStats[isTeamMatch2].top += top2;
+              teamStats[isTeamMatch2].total += total2;
+              teamStats[isTeamMatch2].booyah += booyah2;
+            }
+          }
+        }
+      });
+    }
+
+    function parseMiniFinalCSV(csvText) {
+      const lines = csvText.trim().split('\n');
+      lines.forEach((line) => {
+        if (line.includes('Rang') || line.includes('Équipe') || line.includes('Equipe')) return;
+        const parts = line.split(',').map(p => p.trim());
+        
+        let teamNameRaw, kills, top, total, booyah;
+
+        if (parts.length >= 7 && parts[0] === '') {
+          teamNameRaw = parts[2];
+          kills = parseInt(parts[3]) || 0;
+          top = parseInt(parts[4]) || 0;
+          total = parseInt(parts[5]) || 0;
+          booyah = parseInt(parts[6]) || 0;
+        } else if (parts.length >= 5) {
+          teamNameRaw = parts[0];
+          kills = parseInt(parts[1]) || 0;
+          top = parseInt(parts[2]) || 0;
+          total = parseInt(parts[3]) || 0;
+          booyah = parseInt(parts[4]) || 0;
+        } else { return; }
+
+        if (!teamNameRaw) return;
+        const teamName = findBestMatch(teamNameRaw);
+        
+        if (teamName && miniFinalW1Results[teamName]) {
+          miniFinalW1Results[teamName] = { kills, top, total, booyah };
+        }
+      });
+    }
+
+    function parseMVPCSV(csvText) {
+      mvpPlayers = [];
+      const lines = csvText.trim().split('\n');
+      const seenPlayers = new Set();
+      
+      lines.forEach((line) => {
+        const lowerLine = line.toLowerCase();
+        if (lowerLine.includes('équipe') || lowerLine.includes('player name') || lowerLine.includes('rang') || lowerLine.includes('team name')) return;
+
+        const parts = line.split(',').map(p => p.trim());
+
+        if (parts.length >= 5) {
+          let playerName, kills, damage, assists, headshots;
+          
+          if (/^\d+$/.test(parts[0])) {
+             playerName = parts[1];
+             kills = parseInt(parts[2]) || 0;
+             damage = parseInt(parts[3]) || 0;
+             assists = parseInt(parts[4]) || 0;
+             headshots = parseInt(parts[5]) || 0;
+          } else {
+             playerName = parts[0];
+             kills = parseInt(parts[1]) || 0;
+             damage = parseInt(parts[2]) || 0;
+             assists = parseInt(parts[3]) || 0;
+             headshots = parseInt(parts[4]) || 0;
+          }
+
+          if (!playerName) return;
+          
+          let teamPrefix = playerName.split('.')[0];
+          let teamName = findBestMatch(teamPrefix) || "FREE AGENT";
+
+          const key = `${playerName}-${teamName}`;
+          if (seenPlayers.has(key)) return;
+          seenPlayers.add(key);
+
+          mvpPlayers.push({
+            team: teamName, name: playerName, kills: kills, damage: damage,
+            assists: assists, headshots: headshots, knockDown: 0
+          });
+        }
+      });
+
+      mvpPlayers.sort((a, b) => b.kills - a.kills);
+    }
+
+    // ========== RENDU TABLEAUX ==========
+    function renderGlobalTeamsTable() {
+      const teamsTable = document.getElementById('teamsTable');
+      teamsTable.innerHTML = '';
+      const sortedTeams = [...teamNames].sort((a, b) => teamStats[b].total - teamStats[a].total);
+
+      sortedTeams.forEach((name, index) => {
+        const stats = teamStats[name];
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td class="col-left">${getTeamLogoHTML(name)} ${name}</td>
+          <td><span class="badge-kill">${stats.kills}</span></td>
+          <td>${stats.top}</td>
+          <td><strong>${stats.total}</strong></td>
+          <td>${stats.booyah > 0 ? `<span class="badge-booyah">${stats.booyah}</span>` : '0'}</td>
+        `;
+        teamsTable.appendChild(row);
+      });
+    }
+
+    function renderMVPTable() {
+      const mvpTable = document.getElementById('mvpTable');
+      mvpTable.innerHTML = '';
+      
+      if (mvpPlayers.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="5" style="text-align:center; padding:30px; color:#666;">En attente des données MVP (CSV)...</td>`;
+        mvpTable.appendChild(row);
+        return;
+      }
+
+      mvpPlayers.slice(0, 20).forEach(player => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="col-left">${getPlayerPhotoHTML(player.name)} ${player.name}</td>
+          <td><span class="badge-kill">${player.kills}</span></td>
+          <td>${player.damage.toLocaleString()}</td>
+          <td>${player.assists}</td>
+          <td>${player.headshots}</td>
+        `;
+        mvpTable.appendChild(row);
+      });
+    }
+
+    // ========== GESTION DES SEMAINES ==========
+    let currentWeek = 'W1';
+    let currentDay = 'D1';
+    let currentView = 'day';
+    let currentTotalView = null;
+    let currentGroupsView = null;
+
+    const weeksData = {
+      "W1": { dates: "13-16/10/2026", days: [
+        { id: "D1", match: "A X B", groups: ["A", "B"] },
+        { id: "D2", match: "B X C", groups: ["B", "C"] },
+        { id: "D3", match: "A X C", groups: ["A", "C"] },
+        { id: "D4", match: "MINI FINAL", groups: [], desc: "BEST 12 TEAMS QUALIFY TO SMALL FINAL 50$", isMiniFinal: true, qualifiedTeams: miniFinalW1Teams, results: miniFinalW1Results, crowned1: crownedTeamsType1, crowned2: crownedTeamsType2 }
+      ]},
+      "W2": { dates: "18-21/10/2026", days: [
+        { id: "D5", match: "A X C", groups: ["A", "C"] },
+        { id: "D6", match: "B X C", groups: ["B", "C"] },
+        { id: "D7", match: "A X B", groups: ["A", "B"] },
+        { id: "D8", match: "MINI FINAL", groups: [], desc: "BEST 12 TEAMS QUALIFY TO SMALL FINAL 50$", isMiniFinal: true }
+      ]},
+      "W3": { dates: "23-26/10/2026", days: [
+        { id: "D9", match: "B X C", groups: ["B", "C"] },
+        { id: "D10", match: "A X C", groups: ["A", "C"] },
+        { id: "D11", match: "A X B", groups: ["A", "B"] },
+        { id: "D12", match: "MINI FINAL", groups: [], desc: "BEST 12 TEAMS QUALIFY TO SMALL FINAL 50$", isMiniFinal: true }
+      ]},
+      "W4": { dates: "28-31/10/2026", days: [
+        { id: "D13", match: "A X B", groups: ["A", "B"] },
+        { id: "D14", match: "B X C", groups: ["B", "C"] },
+        { id: "D15", match: "A X C", groups: ["A", "C"] },
+        { id: "D16", match: "MINI FINAL", groups: [], desc: "BEST 12 TEAMS QUALIFY TO SMALL FINAL 50$", isMiniFinal: true }
+      ]},
+      "SPECIAL": { dates: "02-03/11/2026", days: [
+        { id: "RUSH", match: "RUSH POINTS", groups: [], desc: "02/11/2026", special: "rush" },
+        { id: "FINAL", match: "BIG FINAL", groups: [], desc: "03/11/2026 — BEST 12 TEAMS AFTER 16 DAYS QUALIFY TO BIG FINAL", special: "final" }
+      ]}
+    };
+
+    // ========== INITIALISATION & CHARGEMENT ==========
+    function loadDefaultDataForDay() {
+      // L'interface attend que l'utilisateur importe les fichiers
+      document.getElementById('teamUploadStatus').style.display = 'none';
+      document.getElementById('mvpUploadStatus').style.display = 'none';
+
+      if (currentTotalView) {
+        // Logique pour les totaux
+      }
+
+      renderGlobalTeamsTable();
+      renderMVPTable();
+      renderDayResults();
+    }
+
+    function selectChoice(choice) {
+      document.getElementById('welcomeOverlay').style.display = 'none';
+      document.getElementById('siteContent').classList.add('active');
+      currentView = choice;
+      currentTotalView = null;
+      currentGroupsView = null;
+      
+      loadDefaultDataForDay();
+      renderNavMenus();
+    }
+
+    function renderNavMenus() {
+      // Semaines
+      let weekBtns = '';
+      ['W1', 'W2', 'W3', 'W4', 'SPECIAL'].forEach(week => {
+        const label = week === 'SPECIAL' ? 'RUSH / FINAL' : week;
+        weekBtns += `<button class="nav-btn ${week === currentWeek && !currentTotalView && !currentGroupsView ? 'active' : ''}" onclick="changeWeek('${week}')">${label}</button>`;
+      });
+      document.getElementById('weekBtns').innerHTML = weekBtns;
+
+      // Totaux
+      let totalBtns = `
+        <button class="nav-btn ${currentTotalView === 'W1' ? 'active' : ''}" onclick="showTotal('W1')">TOTAL W1</button>
+        <button class="nav-btn ${currentTotalView === 'W2' ? 'active' : ''}" onclick="showTotal('W2')">TOTAL W2</button>
+        <button class="nav-btn ${currentTotalView === 'W3' ? 'active' : ''}" onclick="showTotal('W3')">TOTAL W3</button>
+        <button class="nav-btn ${currentTotalView === 'W4' ? 'active' : ''}" onclick="showTotal('W4')">TOTAL W4</button>
+        <button class="nav-btn grand-total ${currentTotalView === 'ALL' ? 'active' : ''}" onclick="showTotal('ALL')"><i class="fas fa-calculator"></i> TOTAL 4 WEEKS</button>
+      `;
+      document.getElementById('totalBtns').innerHTML = totalBtns;
+
+      // Groupes
+      let groupsBtns = `
+        <button class="nav-btn ${currentGroupsView === 'W1' ? 'active' : ''}" onclick="showGroups('W1')">توزيع الأسبوع الأول</button>
+        <button class="nav-btn ${currentGroupsView === 'W2' ? 'active' : ''}" onclick="showGroups('W2')">توزيع الأسبوع الثاني</button>
+        <button class="nav-btn ${currentGroupsView === 'W3' ? 'active' : ''}" onclick="showGroups('W3')">توزيع الأسبوع الثالث</button>
+        <button class="nav-btn ${currentGroupsView === 'W4' ? 'active' : ''}" onclick="showGroups('W4')">توزيع الأسبوع الرابع</button>
+      `;
+      document.getElementById('groupsBtns').innerHTML = groupsBtns;
+
+      // Jours
+      let dayBtns = '';
+      const days = weeksData[currentWeek].days;
+      days.forEach(day => {
+        dayBtns += `<button class="nav-btn ${day.id === currentDay && !currentTotalView && !currentGroupsView ? 'active' : ''}" onclick="changeDay('${day.id}')">${day.id}</button>`;
+      });
+      document.getElementById('dayBtns').innerHTML = dayBtns;
+    }
+
+    function renderGroupsView() {
+      const container = document.getElementById('dayResultsContainer');
+      const weekKey = currentGroupsView;
+      const data = groupsData[weekKey];
+      
+      if (!data) {
+        container.innerHTML = `
+          <div class="card">
+            <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+              <div class="card-header-left">
+                <i class="fas fa-users"></i>
+                <span>GROUP DISTRIBUTION</span>
+              </div>
+              <div style="font-size: 1.1rem; color: #fff; font-weight: normal;">
+                توزيع الفرق على المجموعات الأسبوع ${weekKey === 'W1' ? 'الأول' : weekKey === 'W2' ? 'الثاني' : weekKey === 'W3' ? 'الثالث' : 'الرابع'} - WEEK ${weekKey.replace('W', '')}
+              </div>
+            </div>
+            <div class="tbd-container">
+              <i class="fas fa-users-cog"></i>
+              <div>TBD</div>
+              <div style="font-size: 0.9rem; color: #888; font-weight: normal;">(To Be Determined)</div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const renderGroupTable = (groupName, teams) => `
+        <div class="group-box">
+          <div class="group-header">GROUP ${groupName}</div>
+          <table class="group-table">
+            <thead>
+              <tr><th class="col-no">No</th><th class="col-team">NAME TEAMS</th></tr>
+            </thead>
+            <tbody>
+              ${teams.map((team, i) => {
+                const match = teamNames.find(t => t.toUpperCase().includes(team.toUpperCase().split(' ')[0]));
+                const displayName = match || team;
+                return `
+                <tr>
+                  <td class="col-no">${i + 1}</td>
+                  <td class="col-team">${getTeamLogoHTML(displayName)} ${displayName}</td>
+                </tr>
+              `}).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      container.innerHTML = `
+        <div class="card">
+          <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <div class="card-header-left">
+              <i class="fas fa-users"></i>
+              <span>GROUP DISTRIBUTION</span>
+            </div>
+            <div style="font-size: 1.1rem; color: #fff; font-weight: normal;">
+              توزيع الفرق على المجموعات الأسبوع ${weekKey === 'W1' ? 'الأول' : weekKey === 'W2' ? 'الثاني' : weekKey === 'W3' ? 'الثالث' : 'الرابع'} - WEEK ${weekKey.replace('W', '')}
+            </div>
+          </div>
+          <div class="groups-container">
+            ${renderGroupTable('A', data.A)}
+            ${renderGroupTable('B', data.B)}
+            ${renderGroupTable('C', data.C)}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDayResults() {
+      if (currentGroupsView) {
+        renderGroupsView();
+        return;
+      }
+
+      const container = document.getElementById('dayResultsContainer');
+      const days = weeksData[currentWeek].days;
+      const currentDayData = days.find(d => d.id === currentDay) || days[0];
+      
+      let dayDisplayHTML = '';
+      const isRush = currentDayData.special === 'rush';
+      const isFinal = currentDayData.special === 'final';
+      const isSpecial = isRush || isFinal;
+      const isMiniFinal = currentDayData.isMiniFinal;
+
+      if (currentTotalView) {
+        const label = currentTotalView === 'ALL' ? 'TOTAL 4 WEEKS' : `TOTAL ${currentTotalView}`;
+        dayDisplayHTML = `
+          <div class="day-item special">
+            <i class="fas fa-calculator"></i>
+            <div class="day-label">${label}</div>
+            <div class="day-desc">Cumul des points</div>
+          </div>`;
+      } else if (isSpecial) {
+        const iconClass = isFinal ? 'fa-trophy' : 'fa-bolt';
+        const itemClass = isFinal ? 'special' : 'rush';
+        dayDisplayHTML = `
+          <div class="day-item ${itemClass}">
+            <i class="fas ${iconClass}"></i>
+            <div class="day-label">${currentDayData.id}</div>
+            <div class="day-match">${currentDayData.match}</div>
+            <div class="day-desc">${currentDayData.desc || ''}</div>
+          </div>`;
+      } else if (isMiniFinal) {
+        dayDisplayHTML = `
+          <div class="day-item special">
+            <i class="fas fa-medal"></i>
+            <div class="day-label">${currentDayData.id}</div>
+            <div class="day-match">${currentDayData.match}</div>
+            <div class="day-desc">${currentDayData.desc || ''}</div>
+          </div>`;
+      } else {
+        const teamsCount = currentDayData.groups.reduce((sum, g) => sum + (groupsData[currentWeek] ? groupsData[currentWeek][g].length : 0), 0);
+        dayDisplayHTML = `
+          <div class="day-item">
+            <i class="fas fa-gamepad"></i>
+            <div class="day-label">${currentDayData.id}</div>
+            <div class="day-match">${currentDayData.match}</div>
+            <div class="day-teams-count">${teamsCount} TEAMS</div>
+          </div>`;
+      }
+
+      let qualifiedHTML = '';
+      if (!currentTotalView && isMiniFinal && currentDayData.qualifiedTeams && currentDayData.qualifiedTeams.length > 0) {
+        qualifiedHTML = `
+          <div class="day-teams-table" style="margin-top:20px;">
+            <div class="table-title">
+              <div class="title-left">
+                <i class="fas fa-medal"></i>
+                <span>TEAMS QUALIFIED (${currentDayData.qualifiedTeams.length})</span>
+              </div>
+            </div>
+            <div style="padding: 25px; overflow: visible;">
+              <div class="qualified-grid">
+                ${currentDayData.qualifiedTeams.map((name, i) => {
+                  const logoFile = teamLogos[name];
+                  return `
+                    <div class="qualified-team">
+                      <div class="qual-rank">#${i + 1}</div>
+                      ${logoFile 
+                        ? `<img src="${logoFile}" alt="${name}" class="qual-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                           <div class="qual-logo-fallback" style="display:none;">${getInitials(name)}</div>`
+                        : `<div class="qual-logo-fallback">${getInitials(name)}</div>`
+                      }
+                      <div class="qual-name">${name}</div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="qualified-banner">
+            <i class="fas fa-trophy"></i> BEST 12 TEAMS QUALIFY TO SMALL FINAL 50$
+          </div>
+        `;
+      }
+
+      let teamsTableHTML = '';
+      
+      if (!currentTotalView && isMiniFinal && currentDayData.qualifiedTeams && currentDayData.qualifiedTeams.length > 0) {
+        const results = currentDayData.results || {};
+        const teamsWithResults = currentDayData.qualifiedTeams.map(name => ({
+          name,
+          ...(results[name] || { kills: 0, top: 0, total: 0, booyah: 0 })
+        }));
+        
+        teamsWithResults.sort((a, b) => b.total - a.total);
+
+        teamsTableHTML = `
+          <div class="day-teams-table" style="margin-top:20px;">
+            <div class="table-title">
+              <div class="title-left">
+                <i class="fas fa-list-ol"></i>
+                <span>MINI FINAL — RESULTS (${teamsWithResults.length})</span>
+              </div>
+            </div>
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr><th>Rang</th><th class="col-left">Équipe</th><th>Kills</th><th>Top</th><th>Total</th><th>Booyah</th></tr>
+                </thead>
+                <tbody>
+                  ${teamsWithResults.map((team, i) => {
+                    const hasCrown1 = currentDayData.crowned1 && currentDayData.crowned1.includes(team.name);
+                    const hasCrown2 = currentDayData.crowned2 && currentDayData.crowned2.includes(team.name);
+                    const isWinner = hasCrown1 || hasCrown2;
+                    
+                    let crownToShow = '';
+                    if (hasCrown1) crownToShow = crownSVG1;
+                    else if (hasCrown2) crownToShow = crownSVG2;
+
+                    return `<tr class="${isWinner ? 'winner-row' : ''}">
+                      <td>${i + 1}</td>
+                      <td class="col-left">${getTeamLogoHTML(team.name)} ${team.name} ${crownToShow}</td>
+                      <td><span class="badge-kill">${team.kills}</span></td>
+                      <td>${team.top}</td>
+                      <td><strong>${team.total}</strong></td>
+                      <td>${team.booyah > 0 ? `<span class="badge-booyah">${team.booyah}</span>` : '0'}</td>
+                    </tr>`;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>`;
+      } else if (!currentTotalView && !isSpecial && !isMiniFinal && currentDayData.groups.length > 0 && groupsData[currentWeek]) {
+        const participatingTeams = [];
+        currentDayData.groups.forEach(g => groupsData[currentWeek][g].forEach(name => participatingTeams.push(name)));
+        participatingTeams.sort((a, b) => teamStats[b].total - teamStats[a].total);
+
+        teamsTableHTML = `
+          <div class="day-teams-table">
+            <div class="table-title">
+              <div class="title-left">
+                <i class="fas fa-users"></i>
+                <span>TEAMS PARTICIPATING (${participatingTeams.length})</span>
+              </div>
+            </div>
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr><th>#</th><th class="col-left">Équipe</th><th>Kills</th><th>Top</th><th>Total</th><th>Booyah</th></tr>
+                </thead>
+                <tbody>
+                  ${participatingTeams.map((name, i) => {
+                    const stats = teamStats[name];
+                    return `<tr>
+                      <td>${i + 1}</td>
+                      <td class="col-left">${getTeamLogoHTML(name)} ${name}</td>
+                      <td><span class="badge-kill">${stats.kills}</span></td>
+                      <td>${stats.top}</td>
+                      <td><strong>${stats.total}</strong></td>
+                      <td>${stats.booyah > 0 ? `<span class="badge-booyah">${stats.booyah}</span>` : '0'}</td>
+                    </tr>`;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>`;
+      } else if (currentTotalView) {
+        const sortedTeams = [...teamNames].sort((a, b) => teamStats[b].total - teamStats[a].total);
+        teamsTableHTML = `
+          <div class="day-teams-table" style="margin-top:20px;">
+            <div class="table-title">
+              <div class="title-left">
+                <i class="fas fa-trophy"></i>
+                <span>CLASSEMENT ${currentTotalView === 'ALL' ? '4 WEEKS' : currentTotalView}</span>
+              </div>
+            </div>
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr><th>#</th><th class="col-left">Équipe</th><th>Kills</th><th>Top</th><th>Total</th><th>Booyah</th></tr>
+                </thead>
+                <tbody>
+                  ${sortedTeams.map((name, i) => {
+                    const stats = teamStats[name];
+                    return `<tr>
+                      <td>${i + 1}</td>
+                      <td class="col-left">${getTeamLogoHTML(name)} ${name}</td>
+                      <td><span class="badge-kill">${stats.kills}</span></td>
+                      <td>${stats.top}</td>
+                      <td><strong>${stats.total}</strong></td>
+                      <td>${stats.booyah > 0 ? `<span class="badge-booyah">${stats.booyah}</span>` : '0'}</td>
+                    </tr>`;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>`;
+      }
+
+      container.innerHTML = `
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-left">
+              <i class="fas fa-calendar-day"></i>
+              <span>POINTS OF EACH DAY</span>
+            </div>
+          </div>
+          <div style="text-align:center; color:#FFD700; font-size:1.1rem; margin-bottom:15px;">
+            ${weeksData[currentWeek].dates}
+          </div>
+          
+          ${dayDisplayHTML}
+          ${qualifiedHTML}
+          ${teamsTableHTML}
+        </div>`;
+    }
+
+    // ========== BOUTONS ACTIONS ==========
+    function showTotal(type) {
+      currentView = 'day';
+      currentGroupsView = null;
+      currentTotalView = type;
+      loadDefaultDataForDay();
+      renderNavMenus();
+    }
+
+    function showGroups(week) {
+      currentView = 'day';
+      currentTotalView = null;
+      currentGroupsView = week;
+      renderNavMenus();
+      renderDayResults();
+    }
+
+    function changeWeek(week) {
+      currentWeek = week;
+      currentDay = weeksData[week].days[0].id;
+      currentTotalView = null;
+      currentGroupsView = null;
+      loadDefaultDataForDay();
+      renderNavMenus();
+    }
+
+    function changeDay(day) {
+      currentDay = day;
+      currentTotalView = null;
+      currentGroupsView = null;
+      loadDefaultDataForDay();
+      renderNavMenus();
+    }
+
+    function resetStats() {
+      teamNames.forEach(name => {
+        teamStats[name] = { kills: 0, top: 0, total: 0, booyah: 0 };
+      });
+    }
+
+    function goBack() {
+      document.getElementById('siteContent').classList.remove('active');
+      document.getElementById('welcomeOverlay').style.display = 'flex';
+      document.getElementById('dayResultsContainer').innerHTML = '';
+    }
+
+    // INITIALISATION AU DEMARRAGE
+    renderMVPTable();
+  </script>
+
+</body>
+</html>
