@@ -767,7 +767,7 @@
             <i class="fas fa-file-csv"></i>
             <div class="upload-text">
               <strong>Importer le fichier CSV des Équipes</strong>
-              <span>Sélectionnez votre fichier (ex: W1-D1-AXB.csv)</span>
+              <span>Sélectionnez votre fichier (ex: W3-TOTAL 2 DAYS.csv)</span>
             </div>
           </div>
           <label class="upload-btn">
@@ -873,27 +873,33 @@
     // ========== LOGOS DES ÉQUIPES ==========
     const teamLogos = {
       "69 E-SPORT": "6E.png", "AL AHLI ESP": "AA.png", "AMATERAS": "AM.png",
-      "ALPHA TEAM": "AT.png", "BAZ ESPORT": "BE.png", "CLEAR VISION": "CV.png",
-      "FENNEC ESPORT": "FE.png", "FURY ESPORTS": "FURY.png", "GOATVERSE": "GO.png",
-      "IMPELDOWN": "IM.png", "JOKO FORCE": "JF.png", "NEYA ESPORT": "NEYA.png",
-      "STARS DZ": "SD.png", "SUPER STARS": "SS.png", "VOLCANOS": "VO.png",
-      "WANTED DZ": "WD.png", "WINNERS": "WI.png", "BMH ESP": "BMH.png",
-      "NEXORA": "902000052.png"
+      "ALPHA TEAM": "AT.png", "BAZ ESPORT": "BE.png", 
+      "B ESPORT": "902000004.png", // Le logo pour B ESPORT
+      "CLEAR VISION": "CV.png", "FENNEC ESPORT": "FE.png", "FURY ESPORTS": "FURY.png",
+      "GOATVERSE": "GO.png", "IMPELDOWN": "IM.png", "JOKO FORCE": "JF.png",
+      "NEYA ESPORT": "NEYA.png", "SUPER STARS": "SS.png",
+      "VOLCANOS": "VO.png", "WANTED DZ": "WD.png", "WINNERS": "WI.png",
+      "BMH ESP": "BMH.png", "NEXORA": "902000052.png"
     };
 
     // ========== DONNÉES DES GROUPES ==========
     const groupsData = {
       "W1": {
-        A: ["FENNEC ESPORT","IMPELDOWN","NEYA ESPORT","STARS DZ","VOLCANOS","BMH ESP"],
+        A: ["FENNEC ESPORT","IMPELDOWN","NEYA ESPORT","B ESPORT","VOLCANOS","BMH ESP"],
         B: ["69 E-SPORT","AL AHLI ESP","AMATERAS","BAZ ESPORT","GOATVERSE","WANTED DZ","WINNERS"],
         C: ["CLEAR VISION","JOKO FORCE","ALPHA TEAM","SUPER STARS","FURY ESPORTS","NEXORA"]
       },
       "W2": {
-        A: ["69 E-SPORT","GOATVERSE","IMPELDOWN","STARS DZ","SUPER STARS","WANTED DZ"],
+        A: ["69 E-SPORT","GOATVERSE","IMPELDOWN","B ESPORT","SUPER STARS","WANTED DZ"],
         B: ["FURY ESPORTS","ALPHA TEAM","AMATERAS","BAZ ESPORT","JOKO FORCE","VOLCANOS","NEXORA"],
         C: ["CLEAR VISION","BMH ESP","NEYA ESPORT","AL AHLI ESP","FENNEC ESPORT","WINNERS"]
       },
-      "W3": null, "W4": null
+      "W3": {
+        A: ["AL AHLI ESP","AMATERAS","WANTED DZ","NEYA ESPORT","IMPELDOWN","FURY ESPORTS"], 
+        B: ["B ESPORT","CLEAR VISION","JOKO FORCE","BMH ESP","SUPER STARS","WINNERS","69 E-SPORT"],
+        C: ["ALPHA TEAM","NEXORA","BAZ ESPORT","VOLCANOS","FENNEC ESPORT","GOATVERSE"]
+      },
+      "W4": null // TBD
     };
 
     const teamNames = [...groupsData.W1.A, ...groupsData.W1.B, ...groupsData.W1.C];
@@ -902,7 +908,7 @@
     const miniFinalW1Teams = [
       "BAZ ESPORT", "SUPER STARS", "JOKO FORCE", "FURY ESPORTS",
       "ALPHA TEAM", "CLEAR VISION", "VOLCANOS", "NEYA ESPORT",
-      "AMATERAS", "IMPELDOWN", "STARS DZ", "AL AHLI ESP"
+      "AMATERAS", "IMPELDOWN", "B ESPORT", "AL AHLI ESP" // B ESPORT remplace STARS DZ
     ];
 
     const crownedTeamsType1 = ["AL AHLI ESP"];
@@ -1037,7 +1043,6 @@
 
     // ========== 📸 TÉLÉCHARGEMENT D'IMAGE ==========
     function downloadImage(elementId, fileName) {
-      // On cherche l'ID spécifique de la zone de capture si elle existe, sinon on prend la carte entière
       let targetId = elementId;
       if (elementId === 'globalCard') targetId = 'capture-teams';
       if (elementId === 'mvpCard') targetId = 'capture-mvp';
@@ -1045,24 +1050,20 @@
       const element = document.getElementById(targetId);
       if (!element) return;
 
-      // Masquer temporairement les boutons/upload pour ne pas les capturer
       const hideElements = element.querySelectorAll('.download-btn, .upload-zone');
       hideElements.forEach(el => el.style.visibility = 'hidden');
 
-      // Afficher une notification
       alert('Génération de l\'image en cours... Veuillez patienter.');
 
       html2canvas(element, {
-        backgroundColor: '#0d0d0d', // Fond sombre pour le tableau
-        scale: 3, // Qualité HD (x3)
+        backgroundColor: '#0d0d0d',
+        scale: 3,
         useCORS: true,
         allowTaint: true,
         logging: false
       }).then(canvas => {
-        // Remettre les éléments visibles
         hideElements.forEach(el => el.style.visibility = 'visible');
 
-        // Créer le lien de téléchargement
         const link = document.createElement('a');
         link.download = `${fileName}-${new Date().toISOString().slice(0,10)}.png`;
         link.href = canvas.toDataURL('image/png');
@@ -1273,10 +1274,10 @@
     }
 
     // ========== GESTION DES SEMAINES ==========
-    let currentWeek = 'W1';
-    let currentDay = 'D1';
+    let currentWeek = 'W3'; // Défini sur W3 par défaut
+    let currentDay = 'TOTAL_W3'; // On simule l'onglet TOTAL W3
     let currentView = 'day';
-    let currentTotalView = null;
+    let currentTotalView = 'W3';
     let currentGroupsView = null;
 
     const weeksData = {
@@ -1312,13 +1313,43 @@
 
     // ========== INITIALISATION & CHARGEMENT ==========
     function loadDefaultDataForDay() {
-      // L'interface attend que l'utilisateur importe les fichiers
       document.getElementById('teamUploadStatus').style.display = 'none';
       document.getElementById('mvpUploadStatus').style.display = 'none';
 
-      if (currentTotalView) {
-        // Logique pour les totaux
-      }
+      // On remplit les stats directement avec les données de ton image
+      resetStats();
+      
+      // Données du TOTAL 2 DAYS WEEK 3
+      const w3Data = [
+        { name: "BAZ ESPORT", kills: 125, top: 63, total: 188, booyah: 1 },
+        { name: "SUPER STARS", kills: 86, top: 54, total: 140, booyah: 0 },
+        { name: "VOLCANOS", kills: 92, top: 39, total: 131, booyah: 1 },
+        { name: "FURY ESPORTS", kills: 84, top: 38, total: 122, booyah: 0 },
+        { name: "FENNEC ESPORT", kills: 85, top: 34, total: 119, booyah: 2 },
+        { name: "NEXORA", kills: 53, top: 57, total: 110, booyah: 1 },
+        { name: "AL AHLI ESP", kills: 77, top: 23, total: 100, booyah: 0 },
+        { name: "AMATERAS", kills: 72, top: 26, total: 98, booyah: 0 },
+        { name: "WANTED DZ", kills: 62, top: 32, total: 94, booyah: 1 },
+        { name: "JOKO FORCE", kills: 57, top: 37, total: 94, booyah: 2 },
+        { name: "ALPHA TEAM", kills: 49, top: 32, total: 81, booyah: 1 },
+        { name: "WINNERS", kills: 36, top: 21, total: 57, booyah: 0 },
+        { name: "B ESPORT", kills: 32, top: 22, total: 54, booyah: 1 },
+        { name: "CLEAR VISION", kills: 33, top: 19, total: 52, booyah: 0 },
+        { name: "IMPELDOWN", kills: 27, top: 23, total: 50, booyah: 0 },
+        { name: "NEYA ESPORT", kills: 39, top: 9, total: 48, booyah: 0 },
+        { name: "BMH ESP", kills: 33, top: 14, total: 47, booyah: 0 },
+        { name: "GOATVERSE", kills: 23, top: 12, total: 35, booyah: 0 },
+        { name: "69 E-SPORT", kills: 18, top: 15, total: 33, booyah: 0 }
+      ];
+
+      w3Data.forEach(item => {
+        if (teamStats[item.name]) {
+          teamStats[item.name].kills = item.kills;
+          teamStats[item.name].top = item.top;
+          teamStats[item.name].total = item.total;
+          teamStats[item.name].booyah = item.booyah;
+        }
+      });
 
       renderGlobalTeamsTable();
       renderMVPTable();
@@ -1329,7 +1360,7 @@
       document.getElementById('welcomeOverlay').style.display = 'none';
       document.getElementById('siteContent').classList.add('active');
       currentView = choice;
-      currentTotalView = null;
+      currentTotalView = 'W3'; // Forcer l'affichage sur W3 pour voir les données
       currentGroupsView = null;
       
       loadDefaultDataForDay();
@@ -1679,8 +1710,46 @@
       currentView = 'day';
       currentGroupsView = null;
       currentTotalView = type;
-      loadDefaultDataForDay();
+      
+      // Si on clique sur TOTAL W3, on recharge les données pré-chargées
+      if (type === 'W3') {
+        resetStats();
+        const w3Data = [
+          { name: "BAZ ESPORT", kills: 125, top: 63, total: 188, booyah: 1 },
+          { name: "SUPER STARS", kills: 86, top: 54, total: 140, booyah: 0 },
+          { name: "VOLCANOS", kills: 92, top: 39, total: 131, booyah: 1 },
+          { name: "FURY ESPORTS", kills: 84, top: 38, total: 122, booyah: 0 },
+          { name: "FENNEC ESPORT", kills: 85, top: 34, total: 119, booyah: 2 },
+          { name: "NEXORA", kills: 53, top: 57, total: 110, booyah: 1 },
+          { name: "AL AHLI ESP", kills: 77, top: 23, total: 100, booyah: 0 },
+          { name: "AMATERAS", kills: 72, top: 26, total: 98, booyah: 0 },
+          { name: "WANTED DZ", kills: 62, top: 32, total: 94, booyah: 1 },
+          { name: "JOKO FORCE", kills: 57, top: 37, total: 94, booyah: 2 },
+          { name: "ALPHA TEAM", kills: 49, top: 32, total: 81, booyah: 1 },
+          { name: "WINNERS", kills: 36, top: 21, total: 57, booyah: 0 },
+          { name: "B ESPORT", kills: 32, top: 22, total: 54, booyah: 1 },
+          { name: "CLEAR VISION", kills: 33, top: 19, total: 52, booyah: 0 },
+          { name: "IMPELDOWN", kills: 27, top: 23, total: 50, booyah: 0 },
+          { name: "NEYA ESPORT", kills: 39, top: 9, total: 48, booyah: 0 },
+          { name: "BMH ESP", kills: 33, top: 14, total: 47, booyah: 0 },
+          { name: "GOATVERSE", kills: 23, top: 12, total: 35, booyah: 0 },
+          { name: "69 E-SPORT", kills: 18, top: 15, total: 33, booyah: 0 }
+        ];
+        w3Data.forEach(item => {
+          if (teamStats[item.name]) {
+            teamStats[item.name].kills = item.kills;
+            teamStats[item.name].top = item.top;
+            teamStats[item.name].total = item.total;
+            teamStats[item.name].booyah = item.booyah;
+          }
+        });
+        renderGlobalTeamsTable();
+      } else {
+        loadDefaultDataForDay();
+      }
+      
       renderNavMenus();
+      renderDayResults();
     }
 
     function showGroups(week) {
